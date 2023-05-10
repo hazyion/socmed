@@ -1,0 +1,15 @@
+.error-page{
+	min-height: 300px;
+	height: 1fr;
+	width: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.error{
+	font-size: 2rem;
+	font-family: 'Inter', sans-serif;
+	color: var(--active-accent);
+}

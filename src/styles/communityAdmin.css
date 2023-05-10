@@ -1,0 +1,87 @@
+.community-admin{
+	width: 100%;
+	padding: 80px 0px 100px 100px;
+	overflow: auto;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.community-admin__header,.community-admin__label{
+	color: var(--active-text);
+}
+
+.community-admin__action-box{
+	width: 100%;
+	margin-bottom: 70px;
+}
+
+.community-admin__header{
+	font-size: 2.2rem;
+	font-weight: 600;
+	cursor: pointer;
+	user-select: none;
+}
+
+.community-admin__header-text{
+	margin-left: 30px;
+}
+
+.community-admin__form{
+	margin-top: 50px;
+}
+
+.community-admin__label{
+	padding-top: 5px;
+}
+
+.community-admin__post{
+	display: grid;
+	gap: 50px 50px;
+	grid-template-rows: 100px auto 40px;
+	grid-template-columns: 20% 30% 25%;
+}
+
+.community-admin__input[id="description"]{
+	resize: none;
+	height: 100%;
+}
+
+.community-admin__banner{
+	display: grid;
+	gap: 50px 50px;
+	grid-template-rows: auto 40px;
+	grid-template-columns: 15% 30% 25%;
+}
+
+.community-admin__kick,.community-admin__remove,.community-admin__add{
+	display: grid;
+	grid-template-rows: 40px 40px;
+	grid-template-columns: 10% 25% 25%;
+	gap: 50px 50px;
+}
+
+.community-admin__input{
+	font-size: 1em;
+}
+
+.community-admin__upload-button{
+	height: 40px;
+	width: 100px;
+	margin-bottom: 20px;
+}
+
+.community-admin input[type="file"]{
+	display: none;
+}
+
+.community-admin__warning{
+	padding-top: 5px;
+	color: red;
+	opacity: 0.7;
+	font-size: 0.8em;
+}
+
+.community-admin__submit-button{
+	width: 100px;
+}
