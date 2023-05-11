@@ -23,7 +23,6 @@ export default function App(){
 	let [login, setLogin] = React.useState(false);
 	let [username, setUsername] = React.useState("");
 	let [recentCommunities, setRecentCommunities] = React.useState([]);
-	let [searchResults, setSearchResults] = React.useState([]);
 	// let [dark, setDark] = React.useState(false);
 	const appRef = React.useRef(null);
 	
@@ -76,9 +75,9 @@ export default function App(){
 			if(getUser.username){
 				setUsername(getUser.username);
 				setLogin(true);
-				let res = await fetch('/api/community/recent');
-				let data = await res.json();
-				setRecentCommunities(data.recentCommunities);
+				// let res = await fetch('/api/community/recent');
+				// let data = await res.json();
+				// setRecentCommunities(data.recentCommunities);
 			}
 		};
 		effect();
@@ -117,8 +116,8 @@ export default function App(){
 					<div className="sidebar">
 						<Link to="/community/create" className="sidebar__nav">+ Create Community</Link>
 						<Link to="/chat" className="sidebar__nav">Chat</Link>
-						{login && recentCommunities.length > 0 && <div className="sidebar__heading">Recent Communities</div>}
-						{login && <RecentCommunityElements />}
+						{/* {login && recentCommunities.length > 0 && <div className="sidebar__heading">Recent Communities</div>}
+						{login && <RecentCommunityElements />} */}
 					</div>
 					<Outlet />
 				</div>
