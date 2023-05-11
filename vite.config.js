@@ -8,5 +8,6 @@ export default defineConfig({
     proxy: {
       '/api': 'socmed-server.vercel.app' 
     }
-  }
+  },
+  base: '/socmed/'
 })
