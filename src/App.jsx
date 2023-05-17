@@ -128,17 +128,19 @@ export default function App(){
 	return (
 		<BrowserRouter>
 				<Routes>
-					<Route path='/login' element={<Login />} />
-					<Route path='/signup' element={<Signup />} />
-					<Route path='/' element={<Bars/>}>
-						<Route index element={<Home />} />
-						<Route path='community' element={<Community />} />
-						<Route path='community/create' element={<CreateCommunity />} />
-						<Route path='community/feed/create' element={<CreateFeedPost />} />
-						<Route path='profile' element={<Profile />} />
-						<Route path='chat' element={<Chat />} />
+					<Route path='/socmed'>
+						<Route path='/login' element={<Login />} />
+						<Route path='/signup' element={<Signup />} />
+						<Route path='/' element={<Bars/>}>
+							<Route index element={<Home />} />
+							<Route path='community' element={<Community />} />
+							<Route path='community/create' element={<CreateCommunity />} />
+							<Route path='community/feed/create' element={<CreateFeedPost />} />
+							<Route path='profile' element={<Profile />} />
+							<Route path='chat' element={<Chat />} />
+						</Route>
 					</Route>
-					<Route path='*' element={<ErrorPage message="me"/>} />
+					<Route path='*' element={<ErrorPage />} />
 				</Routes>
 		</BrowserRouter>
 	)
