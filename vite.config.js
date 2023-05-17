@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'socmed-server.vercel.app' 
+      '/api': 'https://socmed-server.vercel.app/api/'
     }
   },
   base: '/socmed/'
