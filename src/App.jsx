@@ -138,7 +138,7 @@ export default function App(){
 						<Route path='profile' element={<Profile />} />
 						<Route path='chat' element={<Chat />} />
 					</Route>
-					<Route path='*' element={<ErrorPage />} />
+					<Route path='*' element={<ErrorPage message="me"/>} />
 				</Routes>
 		</BrowserRouter>
 	)
