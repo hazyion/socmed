@@ -6,8 +6,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'https://socmed-server.vercel.app/api/'
+      '/api': {
+        target: 'https://socmed-server.vercel.app/api',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
     }
   },
-  base: '/socmed/'
+  base: '/'
 })
