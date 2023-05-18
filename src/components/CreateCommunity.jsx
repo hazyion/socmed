@@ -170,7 +170,7 @@ export default function CreateCommunity(){
 			else if(res.status == 200){
 				let fileRef = ref(bannerRef, inputs.banner);
 				await uploadBytes(fileRef, banner);
-				window.location.href = "/";
+				window.location.href = "/socmed/";
 			}
 		})();
 	}

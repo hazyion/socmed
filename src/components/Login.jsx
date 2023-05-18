@@ -22,7 +22,7 @@ export default function Login(){
 			}
 			else if(res.status == 200){
 				res.json().then(val => {
-					window.location.href = "/";
+					window.location.href = "/socmed/";
 				});
 			}
 		});

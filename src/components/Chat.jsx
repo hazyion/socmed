@@ -29,7 +29,7 @@ export default function Chat(){
 	}
 
 	function handleUserSelect(roomId){
-		window.location.href = `/chat?id=${roomId}`;
+		window.location.href = `/socmed/chat?id=${roomId}`;
 	}
 
 	function handleSend(){

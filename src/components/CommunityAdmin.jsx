@@ -215,7 +215,7 @@ export default function CommunityAdmin(props){
 			});
 			if(res.status == 200){
 				setWarnings(prev => ({...prev, postDescription: "", postInput: ""}));
-				window.location.href = `/community?id=${props.communityid}`;
+				window.location.href = `/socmed/community?id=${props.communityid}`;
 			}
 			else{
 				setWarnings(prev => ({...prev, postDescription: `Request Failed: Status ${res.status}`}));
@@ -231,7 +231,7 @@ export default function CommunityAdmin(props){
 			});
 			if(res.status == 200){
 				setWarnings(prev => ({...prev, addAdmin: ""}));
-				window.location.href = `/community?id=${props.communityid}`;
+				window.location.href = `/socmed/community?id=${props.communityid}`;
 			}
 			else{
 				setWarnings(prev => ({...prev, addAdmin: `Request Failed: Status ${res.status}`}));
@@ -247,7 +247,7 @@ export default function CommunityAdmin(props){
 			});
 			if(res.status == 200){
 				setWarnings(prev => ({...prev, removeAdmin: ""}));
-				window.location.href = `/community?id=${props.communityid}`;
+				window.location.href = `/socmed/community?id=${props.communityid}`;
 			}
 			else{
 				setWarnings(prev => ({...prev, removeAdmin: `Request Failed: Status ${res.status}`}));
@@ -263,7 +263,7 @@ export default function CommunityAdmin(props){
 			});
 			if(res.status == 200){
 				setWarnings(prev => ({...prev, kickMember: ""}));
-				window.location.href = `/community?id=${props.communityid}`;
+				window.location.href = `/socmed/community?id=${props.communityid}`;
 			}
 			else{
 				setWarnings(prev => ({...prev, kickMember: `Request Failed: Status ${res.status}`}));
@@ -280,7 +280,7 @@ export default function CommunityAdmin(props){
 			});
 			if(res.status == 200){
 				setWarnings(prev => ({...prev, banner: ""}));
-				window.location.href = `/community?id=${props.communityid}`;
+				window.location.href = `/socmed/community?id=${props.communityid}`;
 			}
 			else{
 				setWarnings(prev => ({...prev, banner: `Request Failed: Status ${res.status}`}));

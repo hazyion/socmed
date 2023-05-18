@@ -21,7 +21,7 @@ export default function Search(){
 		if(searchResults.communities.length){
 			arr.push(...searchResults.communities.map(obj => {
 				return (
-					<div className="search-element" onClick={() => {window.location.href = `/community?id=${obj.id}`}}>
+					<div className="search-element" onClick={() => {window.location.href = `/socmed/community?id=${obj.id}`}}>
 						<FontAwesomeIcon icon={faTableColumns} className='search-element__icon'/>
 						<div className="search-element__text">{obj.name}</div>
 					</div>
@@ -31,7 +31,7 @@ export default function Search(){
 		if(searchResults.users.length){
 			arr.push(...searchResults.users.map(obj => {
 				return (
-					<div className="search-element" onClick={() => {window.location.href = `/profile?user=${obj.username}`}}>
+					<div className="search-element" onClick={() => {window.location.href = `/socmed/profile?user=${obj.username}`}}>
 						<FontAwesomeIcon icon={faUser} className='search-element__icon'/>
 						<div className="search-element__text">{obj.username}</div>
 					</div>

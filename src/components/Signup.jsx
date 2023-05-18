@@ -83,7 +83,7 @@ export default function Signup(){
 				});
 			}
 			else if(res.status == 200){
-				window.location.href = "/login";
+				window.location.href = "/socmed/login";
 			}
 		});
 	}

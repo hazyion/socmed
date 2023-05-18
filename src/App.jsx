@@ -66,7 +66,7 @@ export default function App(){
 	// }, [dark]);
 
 	function handleRedirectCommunity(id){
-		window.location.href = `/community?id=${id}`;
+		window.location.href = `/socmed/community?id=${id}`;
 	}
 	
 	React.useEffect(() => {
@@ -128,10 +128,10 @@ export default function App(){
 	return (
 		<BrowserRouter>
 				<Routes>
-					<Route path='/socmed'>
-						<Route path='/login' element={<Login />} />
-						<Route path='/signup' element={<Signup />} />
-						<Route path='/' element={<Bars/>}>
+					<Route path={import.meta.env.BASE_URL}>
+						<Route path='login' element={<Login />} />
+						<Route path='signup' element={<Signup />} />
+						<Route element={<Bars/>}>
 							<Route index element={<Home />} />
 							<Route path='community' element={<Community />} />
 							<Route path='community/create' element={<CreateCommunity />} />

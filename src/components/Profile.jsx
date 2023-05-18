@@ -47,7 +47,7 @@ export default function Profile(){
 
 	function handleLogout(){
 		cookies.remove('token');
-		window.location.href = '/login';
+		window.location.href = '/socmed/login';
 	}
 
 	async function handleClickMessage(){
@@ -61,7 +61,7 @@ export default function Profile(){
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({roomId: data.roomId})
 		});
-		window.location.href = `/chat?id=${data.roomId}`;
+		window.location.href = `/socmed/chat?id=${data.roomId}`;
 	}
 
 	async function handleFollow(){
