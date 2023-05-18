@@ -36,7 +36,7 @@ export default function Chat(){
 		if(input.length == 0){
 			return;
 		}
-		if(pathname == '/chat'){
+		if(pathname == '/socmed/chat'){
 			socket.emit('private_message', {message: input, time: new Date()});
 		}
 		else{
@@ -149,7 +149,7 @@ export default function Chat(){
 			}
 			socket.auth = {username: getUser.username, room: `${query.id}`};
 			socket.connect();
-			if(pathname == '/chat'){
+			if(pathname == '/socmed/chat'){
 				let res = await fetch(`/api/chat/private?roomid=${query.id}`);
 				if(res.status == 200){
 					setMessages(await res.json());
@@ -170,10 +170,11 @@ export default function Chat(){
 
 	React.useEffect(() => {
 		const effect = async() => {
-			if(pathname == '/community')
+			if(pathname == '/socmed/community')
 				return;
 			let res = await fetch(`/api/chat/contact`);
 			let data = await res.json();
+			console.log(data);
 			if(userList.length > 0){
 				data = data.map(obj => {
 					let userObj = userList.find(x => x.username == obj.username);
@@ -198,7 +199,7 @@ export default function Chat(){
 	}
 
 	return (
-		<div className={pathname == '/chat' ? "chat" : "chat--community"}>
+		<div className={pathname == '/socmed/chat' ? "chat" : "chat--community"}>
 			{query.id &&
 			<div className="chat__body">
 				<div className="chat__message-box" ref={scroller}>
@@ -212,7 +213,7 @@ export default function Chat(){
 				</div>
 			</div>}
 			{!query.id && <ErrorPage message="Select a chat" />}
-			{pathname == '/chat' && <div className="chat__sidebar">
+			{pathname == '/socmed/chat' && <div className="chat__sidebar">
 				<SidebarElements />
 			</div>}
 		</div>

@@ -11,7 +11,7 @@ export default function Search(){
 			setSearchResults({users: [], communities: []});
 			return;
 		}
-		let res = await fetch(`api/search?search=${searchRef.current.value}`);
+		let res = await fetch(`/api/search?search=${searchRef.current.value}`);
 		let data = await res.json();
 		setSearchResults(data);
 	}

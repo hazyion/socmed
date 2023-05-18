@@ -121,7 +121,7 @@ export default function Community(props){
 		setTimeout(() => {
 			setMember(prev => !prev);
 		}, 200);
-		fetch(`api/member?communityid=${query.id}`, {method});
+		fetch(`/api/member?communityid=${query.id}`, {method});
 	}
 
 	function handleLike(id, liked){
@@ -209,7 +209,7 @@ export default function Community(props){
 				return;
 			}
 
-			res = await fetch(`api/community/feed?communityid=${query.id}`);
+			res = await fetch(`/api/community/feed?communityid=${query.id}`);
 			if(res.status == 200){
 				let data = await res.json();
 				setPosts(data.posts.map(post => ({...post, liked: false})));
@@ -218,7 +218,7 @@ export default function Community(props){
 				}
 			}
 
-			res = await fetch(`api/member?communityid=${query.id}`);
+			res = await fetch(`/api/member?communityid=${query.id}`);
 			if(res.status == 200){
 				let data = await res.json();
 				if(data.member){
@@ -226,7 +226,7 @@ export default function Community(props){
 				}
 			}
 
-			res = await fetch(`api/community/home?communityid=${query.id}`);
+			res = await fetch(`/api/community/home?communityid=${query.id}`);
 			if(res.status == 200){
 				let data = await res.json();
 				setHomePosts(data.posts);
@@ -324,7 +324,7 @@ export default function Community(props){
 			{selected === 'feed' &&
 				<div className="community-feed">
 					<div className="community-feed__header">
-						<Link to={`/community/feed/create?communityid=${query.id}`} className="community-feed__make-post-button">+ Make a post</Link>
+						<Link to={`/socmed/community/feed/create?communityid=${query.id}`} className="community-feed__make-post-button">+ Make a post</Link>
 					</div>
 					{loading.feed ? <ErrorPage loading /> : (sources.length > 0 ? <FeedElements /> : <ErrorPage message='Be the first to make a post!' />)}
 				</div>

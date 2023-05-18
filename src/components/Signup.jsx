@@ -112,7 +112,7 @@ export default function Signup(){
 				</div>
 				<div className="auth__warning" name="signup-password">{warnings.password}</div>
 				<div className="auth__button-box">
-					<Link to="/login" className="auth__redirect">Already signed up? Login</Link>
+					<Link to="/socmed/login" className="auth__redirect">Already signed up? Login</Link>
 					<button className="auth__button button--style" type="button" onClick={handleSubmit}>Sign Up</button>
 				</div>
 			</form>

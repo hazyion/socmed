@@ -95,27 +95,27 @@ export default function App(){
 		return (
 			<div className="container" ref={appRef}>
 				<nav className="navbar">
-					<Link to="/">
+					<Link to="/socmed">
 						<img src={logo} alt="" className="navbar__logo" />
 					</Link>
 					<Search />
 					<div className="navbar__button-box">
 						{/* {dark && <FontAwesomeIcon className="navbar__theme-toggle" icon={faSun} onClick={handleDarkToggle}/>}
 						{!dark && <FontAwesomeIcon className="navbar__theme-toggle" icon={faMoon} onClick={handleDarkToggle}/>} */}
-						{!login && <Link to="../login" className="navbar__login" >Login</Link>}
+						{!login && <Link to="/socmed/login" className="navbar__login" >Login</Link>}
 						{login &&
-						<Link to={`/profile?user=${username}`} className="navbar__profile">
+						<Link to={`/socmed/profile?user=${username}`} className="navbar__profile">
 							<FontAwesomeIcon className="navbar__profile-icon" icon={faUser} />
 						</Link>}
-						{/* <Link to="/settings?username=xxx" className="navbar__settings">
+						{/* <Link to="/socmed/settings?username=xxx" className="navbar__settings">
 							<FontAwesomeIcon className="navbar__settings-icon" icon={faGear} />
 						</Link> */}
 					</div>
 				</nav>
 				<div className="body">
 					<div className="sidebar">
-						<Link to="/community/create" className="sidebar__nav">+ Create Community</Link>
-						<Link to="/chat" className="sidebar__nav">Chat</Link>
+						<Link to="/socmed/community/create" className="sidebar__nav">+ Create Community</Link>
+						<Link to="/socmed/chat" className="sidebar__nav">Chat</Link>
 						{/* {login && recentCommunities.length > 0 && <div className="sidebar__heading">Recent Communities</div>}
 						{login && <RecentCommunityElements />} */}
 					</div>

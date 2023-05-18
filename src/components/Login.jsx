@@ -47,7 +47,7 @@ export default function Login(){
 				</div>
 				<div className="auth__warning" name="login-password">{warnings.password}</div>
 				<div className="auth__button-box">
-					<Link to="/signup" className="auth__redirect">Don't have an account? Sign up</Link>
+					<Link to="/socmed/signup" className="auth__redirect">Don't have an account? Sign up</Link>
 					<button className="auth__button button--style" type="button" onClick={handleSubmit}>Login</button>
 				</div>
 			</form>
