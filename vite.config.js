@@ -9,7 +9,6 @@ export default defineConfig({
       '/api': {
         target: 'https://socmed-server.vercel.app/api',
         changeOrigin: true,
-        secure: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },
     }
