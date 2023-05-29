@@ -21,7 +21,7 @@ export default function Home(){
 
 	React.useEffect(() => {
 		const effect = async() => {
-			let res = await fetch('/api/communities?view=home');
+			let res = await fetch('https://socmed-server.vercel.app/api/communities?view=home');
 			if(res.status == 200){
 				let data = await res.json();
 				setCommunities(data);

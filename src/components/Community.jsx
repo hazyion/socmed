@@ -121,7 +121,7 @@ export default function Community(props){
 		setTimeout(() => {
 			setMember(prev => !prev);
 		}, 200);
-		fetch(`/api/member?communityid=${query.id}`, {method});
+		fetch(`https://socmed-server.vercel.app/api/member?communityid=${query.id}`, {method});
 	}
 
 	function handleLike(id, liked){
@@ -188,7 +188,7 @@ export default function Community(props){
 				setLogin(true);
 			}
 
-			let res = await fetch(`/api/community?id=${query.id}`);
+			let res = await fetch(`https://socmed-server.vercel.app/api/community?id=${query.id}`);
 			if(res.status == 200){
 				let data = await res.json();
 				data.community.src = await getDownloadURL(ref(bannerRef, data.community.banner));
@@ -199,7 +199,7 @@ export default function Community(props){
 				return;
 			}
 
-			res = await fetch(`/api/admin?communityid=${query.id}`);
+			res = await fetch(`https://socmed-server.vercel.app/api/admin?communityid=${query.id}`);
 			if(res.status == 200){
 				let data = await res.json();
 				setAdmin(data.admin);
@@ -209,7 +209,7 @@ export default function Community(props){
 				return;
 			}
 
-			res = await fetch(`/api/community/feed?communityid=${query.id}`);
+			res = await fetch(`https://socmed-server.vercel.app/api/community/feed?communityid=${query.id}`);
 			if(res.status == 200){
 				let data = await res.json();
 				setPosts(data.posts.map(post => ({...post, liked: false})));
@@ -218,7 +218,7 @@ export default function Community(props){
 				}
 			}
 
-			res = await fetch(`/api/member?communityid=${query.id}`);
+			res = await fetch(`https://socmed-server.vercel.app/api/member?communityid=${query.id}`);
 			if(res.status == 200){
 				let data = await res.json();
 				if(data.member){
@@ -226,7 +226,7 @@ export default function Community(props){
 				}
 			}
 
-			res = await fetch(`/api/community/home?communityid=${query.id}`);
+			res = await fetch(`https://socmed-server.vercel.app/api/community/home?communityid=${query.id}`);
 			if(res.status == 200){
 				let data = await res.json();
 				setHomePosts(data.posts);

@@ -23,7 +23,7 @@ export default function CreateFeedPost(){
 			setValid(false);
 		}
 		else{
-			fetch(`/api/community?id=${query.communityid}`)
+			fetch(`https://socmed-server.vercel.app/api/community?id=${query.communityid}`)
 			.then(res => {
 				if(res.status == 400){
 					setValid(false);
@@ -97,7 +97,7 @@ export default function CreateFeedPost(){
 			const fileRef = ref(feedRef, i.id);
 			await uploadBytes(fileRef, i);
 		}
-		await fetch(`/api/community/feed?communityid=${query.communityid}`, {
+		await fetch(`https://socmed-server.vercel.app/api/community/feed?communityid=${query.communityid}`, {
 			method: 'POST',
 			body: JSON.stringify(inputs),
 			headers: {'Content-Type': 'application/json'},

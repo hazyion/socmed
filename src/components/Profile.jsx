@@ -16,7 +16,7 @@ export default function Profile(){
 
 	React.useEffect(() => {
 		let effect = async() => {
-			let res = await fetch(`/api/profile?user=${query.user}`);
+			let res = await fetch(`https://socmed-server.vercel.app/api/profile?user=${query.user}`);
 			if(res.status == 200){
 				let data = await res.json();
 				setUserDetails({...data});
@@ -36,7 +36,7 @@ export default function Profile(){
 	React.useEffect(() => {
 		(async() => {
 			if(login){
-				let res = await fetch(`/api/follow?username=${userDetails.username}`);
+				let res = await fetch(`https://socmed-server.vercel.app/api/follow?username=${userDetails.username}`);
 				if(res.status == 200){
 					let data = await res.json();
 					setFollows(data.follows);
@@ -51,12 +51,12 @@ export default function Profile(){
 	}
 
 	async function handleClickMessage(){
-		let res = await fetch(`/api/chat/private/room?username=${userDetails.username}`);
+		let res = await fetch(`https://socmed-server.vercel.app/api/chat/private/room?username=${userDetails.username}`);
 		if(res.status != 200){
 			return;
 		}
 		let data = await res.json();
-		await fetch('/api/chat/contact', {
+		await fetch('https://socmed-server.vercel.app/api/chat/contact', {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({roomId: data.roomId})
@@ -72,7 +72,7 @@ export default function Profile(){
 		else{
 			method = 'POST';
 		}
-		await fetch(`/api/follow`, {
+		await fetch(`https://socmed-server.vercel.app/api/follow`, {
 			method,
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({username: userDetails.username})

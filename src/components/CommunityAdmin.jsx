@@ -139,13 +139,13 @@ export default function CommunityAdmin(props){
 				setWarnings(prev => ({...prev, [arg]: "Username is invalid"}));
 				return false;
 			}
-			let getUser = await fetch(`/api/profile?user=${inputs[arg]}`);
+			let getUser = await fetch(`https://socmed-server.vercel.app/api/profile?user=${inputs[arg]}`);
 			if(getUser.status != 200){
 				setWarnings(prev => ({...prev, [arg]: "This user does not exist"}));
 				return false;
 			}
 			if(arg == 'addAdmin'){
-				let res = await fetch(`/api/admin?communityid=${props.communityid}&user=${inputs.addAdmin}`);
+				let res = await fetch(`https://socmed-server.vercel.app/api/admin?communityid=${props.communityid}&user=${inputs.addAdmin}`);
 				if(res.status == 200){
 					let data = await res.json();
 					if(data.admin){
@@ -161,7 +161,7 @@ export default function CommunityAdmin(props){
 				return false;
 			}
 			else if(arg == 'removeAdmin'){
-				let res = await fetch(`/api/admin?communityid=${props.communityid}&user=${inputs.removeAdmin}`);
+				let res = await fetch(`https://socmed-server.vercel.app/api/admin?communityid=${props.communityid}&user=${inputs.removeAdmin}`);
 				if(res.status == 200){
 					let data = await res.json();
 					if(!data.admin){
@@ -177,7 +177,7 @@ export default function CommunityAdmin(props){
 				return false;
 			}
 			else if(arg == 'kickMember'){
-				let res = await fetch(`/api/member?communityid=${props.communityid}&user=${inputs.kickMember}`);
+				let res = await fetch(`https://socmed-server.vercel.app/api/member?communityid=${props.communityid}&user=${inputs.kickMember}`);
 				if(res.status == 200){
 					let data = await res.json();
 					console.log(data);
@@ -203,7 +203,7 @@ export default function CommunityAdmin(props){
 	async function handleSubmit(arg){
 		if(arg == 'post' && await isValid(arg)){
 			await uploadBytes(ref(homeRef, inputs.postMedia.id), inputs.postMedia);
-			let res = await fetch(`/api/community/home?communityid=${props.communityid}`, {
+			let res = await fetch(`https://socmed-server.vercel.app/api/community/home?communityid=${props.communityid}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -222,7 +222,7 @@ export default function CommunityAdmin(props){
 			}
 		}
 		else if(arg == 'addAdmin' && await isValid(arg)){
-			let res = await fetch(`/api/admin?communityid=${props.communityid}`, {
+			let res = await fetch(`https://socmed-server.vercel.app/api/admin?communityid=${props.communityid}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -238,7 +238,7 @@ export default function CommunityAdmin(props){
 			}
 		}
 		else if(arg == 'removeAdmin' && await isValid(arg)){
-			let res = await fetch(`/api/admin?communityid=${props.communityid}`, {
+			let res = await fetch(`https://socmed-server.vercel.app/api/admin?communityid=${props.communityid}`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
@@ -254,7 +254,7 @@ export default function CommunityAdmin(props){
 			}
 		}
 		else if(arg == 'kickMember' && await isValid(arg)){
-			let res = await fetch(`/api/member?communityid=${props.communityid}`, {
+			let res = await fetch(`https://socmed-server.vercel.app/api/member?communityid=${props.communityid}`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
@@ -271,7 +271,7 @@ export default function CommunityAdmin(props){
 		}
 		else if(arg == 'banner' && await isValid(arg)){
 			await uploadBytes(ref(bannerRef, inputs.banner.id), inputs.banner);
-			let res = await fetch(`/api/community/banner?communityid=${props.communityid}`, {
+			let res = await fetch(`https://socmed-server.vercel.app/api/community/banner?communityid=${props.communityid}`, {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',

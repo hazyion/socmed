@@ -150,13 +150,13 @@ export default function Chat(){
 			socket.auth = {username: getUser.username, room: `${query.id}`};
 			socket.connect();
 			if(pathname == '/socmed/chat'){
-				let res = await fetch(`/api/chat/private?roomid=${query.id}`);
+				let res = await fetch(`https://socmed-server.vercel.app/api/chat/private?roomid=${query.id}`);
 				if(res.status == 200){
 					setMessages(await res.json());
 				}
 			}
 			else{
-				let res = await fetch(`/api/chat/community?roomid=${query.id}`);
+				let res = await fetch(`https://socmed-server.vercel.app/api/chat/community?roomid=${query.id}`);
 				if(res.status == 200){
 					setMessages(await res.json());
 				}
@@ -172,7 +172,7 @@ export default function Chat(){
 		const effect = async() => {
 			if(pathname == '/socmed/community')
 				return;
-			let res = await fetch(`/api/chat/contact`);
+			let res = await fetch(`https://socmed-server.vercel.app/api/chat/contact`);
 			let data = await res.json();
 			console.log(data);
 			if(userList.length > 0){

@@ -8,7 +8,7 @@ export default function Login(){
 	let [warnings, setWarnings] = React.useState({username : "", password: ""});
 	
 	function handleSubmit(event){
-		fetch(`/api/login`,{
+		fetch(`https://socmed-server.vercel.app/api/login`,{
 			method: 'POST',
 			body: JSON.stringify(inputs),
 			headers: {'Content-Type': 'application/json'}
