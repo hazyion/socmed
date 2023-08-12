@@ -27,3 +27,5 @@ dist-ssr
 socmed-server
 do-next.txt
 test.js
+# Local Netlify folder
+.netlify

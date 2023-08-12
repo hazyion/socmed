@@ -58,7 +58,7 @@ export default function Profile(){
 			return;
 		}
 		let data = await res.json();
-		await fetch('${import.meta.env.VITE_SERVER}/chat/contact', {
+		await fetch(`${import.meta.env.VITE_SERVER}/chat/contact`, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({roomId: data.roomId})
