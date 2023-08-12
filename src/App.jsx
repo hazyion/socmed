@@ -13,7 +13,7 @@ import Profile from './components/Profile';
 import Chat from './components/Chat';
 import CreateFeedPost from './components/CreateFeedPost';
 import ErrorPage from './components/ErrorPage';
-import { getUsername } from '../functions';
+import { getUsername } from './functions';
 import logo from '/public/images/logo.png';
 import './styles/style.css';
 import './styles/auth.css';

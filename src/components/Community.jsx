@@ -9,7 +9,7 @@ import Chat from './Chat';
 import Modal from './Modal';
 import CommunityAdmin from './CommunityAdmin';
 import ErrorPage from './ErrorPage';
-import { getUsername } from '../../functions';
+import { getUsername } from '../functions';
 import '../styles/community.css';
 
 export default function Community(props){

@@ -4,7 +4,7 @@ import ErrorPage from '../components/ErrorPage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { faFaceLaughBeam } from '@fortawesome/free-regular-svg-icons';
-import { getUsername, chatTime } from '../../functions';
+import { getUsername, chatTime } from '../functions';
 import '../styles/chat.css';
 import URLParse from 'url-parse';
 

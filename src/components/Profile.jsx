@@ -2,7 +2,7 @@ import React from "react";
 import ErrorPage from "./ErrorPage";
 import urlParse from "url-parse";
 import cookies from "js-cookie";
-import { getUsername } from "../../functions";
+import { getUsername } from "../functions";
 import genericPhoto from '/public/images/profile.jpg';
 import '../styles/profile.css';
 
