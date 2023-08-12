@@ -8,7 +8,6 @@ export default function Login(){
 	let [warnings, setWarnings] = React.useState({username : "", password: ""});
 	
 	function handleSubmit(){
-		console.log('ithanae');
 		fetch(`${import.meta.env.VITE_SERVER}/login`,{
 			method: 'POST',
 			body: JSON.stringify(inputs),
