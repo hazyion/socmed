@@ -5,7 +5,8 @@ import '../styles/home.css';
 
 export default function Home(){
 	let [communities, setCommunities] = React.useState();
-	let [valid, setValid] = React.useState(false);
+	let [valid, setValid] = React.useState(true);
+	let [loading, setLoading] = React.useState(true);
 
 	function makePreviewList(arr){
 		return arr.map(obj => (
@@ -29,12 +30,20 @@ export default function Home(){
 				setCommunities(data);
 				setValid(true);
 			}
+			else{
+				setValid(false);
+			}
+			setLoading(false);
 		}
 		effect();
 	}, []);
 
 	if(!valid){
 		return <ErrorPage />;
+	}
+
+	if(loading){
+		return <ErrorPage loading />;
 	}
 
 	return (

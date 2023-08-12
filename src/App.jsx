@@ -116,7 +116,7 @@ export default function App(){
 				</nav>
 				<div className="body">
 					<div className="sidebar">
-						<Link to="/community/create" className="sidebar__nav">+ Create Community</Link>
+						<Link to={login ? "/community/create" : "/login"} className="sidebar__nav">+ Create Community</Link>
 						<Link to="/chat" className="sidebar__nav">Chat</Link>
 						{/* {login && recentCommunities.length > 0 && <div className="sidebar__heading">Recent Communities</div>}
 						{login && <RecentCommunityElements />} */}

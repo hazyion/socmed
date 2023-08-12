@@ -183,14 +183,30 @@ export default function Community(props){
 
 	React.useEffect(() => {
 		const effect = async() => {
-			let getUser = await getUsername();
+			let getUser = await getUsername(), res, data;
 			if(getUser.username){
 				setLogin(true);
+
+				res = await fetch(`${import.meta.env.VITE_SERVER}/admin?communityid=${query.id}`, {
+					credentials: 'include'
+				});
+				if(res.status == 200){
+					data = await res.json();
+					setAdmin(data.admin);
+				}
+
+				res = await fetch(`${import.meta.env.VITE_SERVER}/member?communityid=${query.id}`, {credentials: 'include'});
+				if(res.status == 200){
+					data = await res.json();
+					if(data.member){
+						setMember(data.member);
+					}
+				}
 			}
 
-			let res = await fetch(`${import.meta.env.VITE_SERVER}/community?id=${query.id}`);
+			res = await fetch(`${import.meta.env.VITE_SERVER}/community?id=${query.id}`);
 			if(res.status == 200){
-				let data = await res.json();
+				data = await res.json();
 				data.community.src = await getDownloadURL(ref(bannerRef, data.community.banner));
 				setCommunity(data.community);
 			}
@@ -199,38 +215,18 @@ export default function Community(props){
 				return;
 			}
 
-			res = await fetch(`${import.meta.env.VITE_SERVER}/admin?communityid=${query.id}`, {
-				credentials: 'include'
-			});
+			res = await fetch(`${import.meta.env.VITE_SERVER}/community/feed?communityid=${query.id}`);
 			if(res.status == 200){
-				let data = await res.json();
-				setAdmin(data.admin);
-			}
-			else{
-				setValid(false);
-				return;
-			}
-
-			res = await fetch(`${import.meta.env.VITE_SERVER}/community/feed?communityid=${query.id}`, {credentials: 'include'});
-			if(res.status == 200){
-				let data = await res.json();
+				data = await res.json();
 				setPosts(data.posts.map(post => ({...post, liked: false})));
 				if(!data.posts.length){
 					setLoading(prev => ({...prev, feed: false}));
 				}
 			}
 
-			res = await fetch(`${import.meta.env.VITE_SERVER}/member?communityid=${query.id}`, {credentials: 'include'});
-			if(res.status == 200){
-				let data = await res.json();
-				if(data.member){
-					setMember(data.member);
-				}
-			}
-
 			res = await fetch(`${import.meta.env.VITE_SERVER}/community/home?communityid=${query.id}`);
 			if(res.status == 200){
-				let data = await res.json();
+				data = await res.json();
 				setHomePosts(data.posts);
 				let obj = {};
 				data.posts.map(post => {obj[post.id] = false});
@@ -314,7 +310,8 @@ export default function Community(props){
 							</div>
 						</div>
 						<div className="community-home__text-box-right">
-							<button className="community-home__join-button button--style" type="button" onClick={handleClickJoin}>{member ? 'Leave' : 'Join'}</button>
+							{login &&
+							<button className="community-home__join-button button--style" type="button" onClick={handleClickJoin}>{member ? 'Leave' : 'Join'}</button>}
 						</div>
 					</div>
 				</div>
@@ -326,7 +323,7 @@ export default function Community(props){
 			{selected === 'feed' &&
 				<div className="community-feed">
 					<div className="community-feed__header">
-						<Link to={`/community/feed/create?communityid=${query.id}`} className="community-feed__make-post-button">+ Make a post</Link>
+						<Link to={login ? `/community/feed/create?communityid=${query.id}` : '/login'} className="community-feed__make-post-button">+ Make a post</Link>
 					</div>
 					{loading.feed ? <ErrorPage loading /> : (sources.length > 0 ? <FeedElements /> : <ErrorPage message='Be the first to make a post!' />)}
 				</div>

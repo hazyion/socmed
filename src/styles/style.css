@@ -16,6 +16,9 @@
 	--dark-border: #464646;
 	--dark-sec: #181818;
 
+	--input-bg: rgba(50, 50, 50, 0.3);
+	--input-bg-accent: rgba(250, 120, 0, 0.3);
+
 	--sidebar-width: 13%;
 	--navbar-height: 75px;
 }
@@ -27,7 +30,7 @@
 
 .input--style{
 	border-radius: 5px;
-	background-color: transparent;
+	background-color: var(--input-bg);
 	border: 1px solid var(--active-border);
 	font-family: 'Inter', sans-serif;
 	color: var(--active-text);
@@ -79,9 +82,8 @@ input:focus,textarea:focus{
 	width: 100%;
 	height: var(--navbar-height);
 	border-bottom: 1px solid var(--active-border);
-	box-shadow: 0px 0px 5px 1px var(--active-border);
 	z-index: 2;
-
+	box-shadow: 0px 0px 20px 0px var(--input-bg-accent);
 	display: flex;
 	align-items: center;
 }
@@ -185,7 +187,7 @@ input:focus,textarea:focus{
 	background-color: var(--active-sec);
 	width: var(--sidebar-width);
 	border-right: 1px solid var(--active-border);
-	box-shadow: 0px 0px 5px 1px var(--active-border);
+	box-shadow: 0px 0px 20px 0px var(--input-bg-accent);
 	padding-top: 50px;
 	z-index: 1;
 
