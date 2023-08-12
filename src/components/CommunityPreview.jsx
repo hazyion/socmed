@@ -24,7 +24,7 @@ export default function CommunityPreview(props){
 	}, []);
 
 	return (
-		<Link to={`/socmed/community?id=${props.id}`} className="community-preview">
+		<Link to={`/community?id=${props.id}`} className="community-preview">
 			<img src={source} alt="" className="community-preview__image" />
 			<div className="community-preview__text-box">
 				<h2 className="community-preview__heading">{props.name}</h2>

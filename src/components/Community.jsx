@@ -326,7 +326,7 @@ export default function Community(props){
 			{selected === 'feed' &&
 				<div className="community-feed">
 					<div className="community-feed__header">
-						<Link to={`/socmed/community/feed/create?communityid=${query.id}`} className="community-feed__make-post-button">+ Make a post</Link>
+						<Link to={`/community/feed/create?communityid=${query.id}`} className="community-feed__make-post-button">+ Make a post</Link>
 					</div>
 					{loading.feed ? <ErrorPage loading /> : (sources.length > 0 ? <FeedElements /> : <ErrorPage message='Be the first to make a post!' />)}
 				</div>

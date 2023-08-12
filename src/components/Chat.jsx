@@ -29,14 +29,14 @@ export default function Chat(){
 	}
 
 	function handleUserSelect(roomId){
-		window.location.href = `/socmed/chat?id=${roomId}`;
+		window.location.href = `/chat?id=${roomId}`;
 	}
 
 	function handleSend(){
 		if(input.length == 0){
 			return;
 		}
-		if(pathname == '/socmed/chat'){
+		if(pathname == '/chat'){
 			socket.emit('private_message', {message: input, time: new Date()});
 		}
 		else{
@@ -149,7 +149,7 @@ export default function Chat(){
 			}
 			socket.auth = {username: getUser.username, room: `${query.id}`};
 			socket.connect();
-			if(pathname == '/socmed/chat'){
+			if(pathname == '/chat'){
 				let res = await fetch(`${import.meta.env.VITE_SERVER}/chat/private?roomid=${query.id}`);
 				if(res.status == 200){
 					setMessages(await res.json());
@@ -170,7 +170,7 @@ export default function Chat(){
 
 	React.useEffect(() => {
 		const effect = async() => {
-			if(pathname == '/socmed/community')
+			if(pathname == '/community')
 				return;
 			let res = await fetch(`${import.meta.env.VITE_SERVER}/chat/contact`);
 			let data = await res.json();
@@ -199,7 +199,7 @@ export default function Chat(){
 	}
 
 	return (
-		<div className={pathname == '/socmed/chat' ? "chat" : "chat--community"}>
+		<div className={pathname == '/chat' ? "chat" : "chat--community"}>
 			{query.id &&
 			<div className="chat__body">
 				<div className="chat__message-box" ref={scroller}>
@@ -213,7 +213,7 @@ export default function Chat(){
 				</div>
 			</div>}
 			{!query.id && <ErrorPage message="Select a chat" />}
-			{pathname == '/socmed/chat' && <div className="chat__sidebar">
+			{pathname == '/chat' && <div className="chat__sidebar">
 				<SidebarElements />
 			</div>}
 		</div>

@@ -103,7 +103,7 @@ export default function CreateFeedPost(){
 			headers: {'Content-Type': 'application/json'},
 			credentials: 'include'
 		});
-		window.location.href = `/socmed/community?id=${query.communityid}`;
+		window.location.href = `/community?id=${query.communityid}`;
 	}
 
 	function handleClickDelete(id){
