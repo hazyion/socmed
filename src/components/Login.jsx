@@ -7,11 +7,14 @@ export default function Login(){
 	let [inputs, setInputs] = React.useState({username : "", password : ""});
 	let [warnings, setWarnings] = React.useState({username : "", password: ""});
 	
-	function handleSubmit(event){
-		fetch(`https://socmed-server.vercel.app/api/login`,{
+	function handleSubmit(){
+		console.log('ithanae');
+		fetch(`${import.meta.env.VITE_SERVER}/login`,{
 			method: 'POST',
 			body: JSON.stringify(inputs),
-			headers: {'Content-Type': 'application/json'}
+			mode: 'cors',
+			headers: {'Content-Type': 'application/json'},
+			credentials: 'include'
 		})
 		.then(res => {
 			if(res.status == 409){
@@ -21,7 +24,7 @@ export default function Login(){
 				});
 			}
 			else if(res.status == 200){
-				res.json().then(val => {
+				res.json().then(() => {
 					window.location.href = "/socmed/";
 				});
 			}

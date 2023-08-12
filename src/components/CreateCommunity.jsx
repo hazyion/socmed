@@ -79,7 +79,7 @@ export default function CreateCommunity(){
 			setWarnings(prev => ({...prev, admin: "User has already been added"}));
 			return;
 		}
-		fetch(`https://socmed-server.vercel.app/api/profile?user=${admin}`, {
+		fetch(`${import.meta.env.VITE_SERVER}/profile?user=${admin}`, {
 			method: 'GET',
 			headers: {'Content-Type': 'application/json'}
 		})
@@ -157,7 +157,7 @@ export default function CreateCommunity(){
 			return;
 		}
 		(async() => {
-			let res = await fetch(`https://socmed-server.vercel.app/api/community/create`, {
+			let res = await fetch(`${import.meta.env.VITE_SERVER}/community/create`, {
 				method: 'POST',
 				body: JSON.stringify(inputs),
 				headers: {'Content-Type': 'application/json'}

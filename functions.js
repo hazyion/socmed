@@ -2,9 +2,9 @@ import cookies from 'js-cookie';
 
 export async function getUsername(){
 	if(cookies.get('token')){
-		let res = await fetch('/api/user', {
+		let res = await fetch(`${import.meta.env.VITE_SERVER}/user`, {
 			method: 'GET',
-			headers: {'Content-Type': 'application/json'},
+			mode: 'cors',
 			credentials: 'include'
 		});
 		if(res.status == 200){

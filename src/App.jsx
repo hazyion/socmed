@@ -75,7 +75,9 @@ export default function App(){
 			if(getUser.username){
 				setUsername(getUser.username);
 				setLogin(true);
-				// let res = await fetch('/api/community/recent');
+				// let res = await fetch(`${import.meta.env.VITE_SERVER}/community/recent`, {
+				// credentials: 'include'
+				// });
 				// let data = await res.json();
 				// setRecentCommunities(data.recentCommunities);
 			}

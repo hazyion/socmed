@@ -121,7 +121,7 @@ export default function Community(props){
 		setTimeout(() => {
 			setMember(prev => !prev);
 		}, 200);
-		fetch(`https://socmed-server.vercel.app/api/member?communityid=${query.id}`, {method});
+		fetch(`${import.meta.env.VITE_SERVER}/member?communityid=${query.id}`, {method, credentials: 'include'});
 	}
 
 	function handleLike(id, liked){
@@ -188,7 +188,7 @@ export default function Community(props){
 				setLogin(true);
 			}
 
-			let res = await fetch(`https://socmed-server.vercel.app/api/community?id=${query.id}`);
+			let res = await fetch(`${import.meta.env.VITE_SERVER}/community?id=${query.id}`);
 			if(res.status == 200){
 				let data = await res.json();
 				data.community.src = await getDownloadURL(ref(bannerRef, data.community.banner));
@@ -199,7 +199,9 @@ export default function Community(props){
 				return;
 			}
 
-			res = await fetch(`https://socmed-server.vercel.app/api/admin?communityid=${query.id}`);
+			res = await fetch(`${import.meta.env.VITE_SERVER}/admin?communityid=${query.id}`, {
+				credentials: 'include'
+			});
 			if(res.status == 200){
 				let data = await res.json();
 				setAdmin(data.admin);
@@ -209,7 +211,7 @@ export default function Community(props){
 				return;
 			}
 
-			res = await fetch(`https://socmed-server.vercel.app/api/community/feed?communityid=${query.id}`);
+			res = await fetch(`${import.meta.env.VITE_SERVER}/community/feed?communityid=${query.id}`, {credentials: 'include'});
 			if(res.status == 200){
 				let data = await res.json();
 				setPosts(data.posts.map(post => ({...post, liked: false})));
@@ -218,7 +220,7 @@ export default function Community(props){
 				}
 			}
 
-			res = await fetch(`https://socmed-server.vercel.app/api/member?communityid=${query.id}`);
+			res = await fetch(`${import.meta.env.VITE_SERVER}/member?communityid=${query.id}`, {credentials: 'include'});
 			if(res.status == 200){
 				let data = await res.json();
 				if(data.member){
@@ -226,7 +228,7 @@ export default function Community(props){
 				}
 			}
 
-			res = await fetch(`https://socmed-server.vercel.app/api/community/home?communityid=${query.id}`);
+			res = await fetch(`${import.meta.env.VITE_SERVER}/community/home?communityid=${query.id}`);
 			if(res.status == 200){
 				let data = await res.json();
 				setHomePosts(data.posts);

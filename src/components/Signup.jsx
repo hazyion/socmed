@@ -70,7 +70,7 @@ export default function Signup(){
 			return;
 		}
 		setInputs(prev => ({...prev, full_name: prev.full_name.trim()}));
-		fetch('https://socmed-server.vercel.app/api/signup', {
+		fetch(`${import.meta.env.VITE_SERVER}/signup`, {
 			method: 'POST',
 			body: JSON.stringify(inputs),
 			headers: {'Content-Type': 'application/json'},
