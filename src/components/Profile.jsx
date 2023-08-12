@@ -3,7 +3,7 @@ import ErrorPage from "./ErrorPage";
 import urlParse from "url-parse";
 import cookies from "js-cookie";
 import { getUsername } from "../../functions";
-import genericPhoto from '../assets/profile.jpg';
+import genericPhoto from '/public/images/profile.jpg';
 import '../styles/profile.css';
 
 export default function Profile(){
