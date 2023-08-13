@@ -1,7 +1,9 @@
-import cookies from 'js-cookie';
+//import cookies from 'js-cookie';
+import Cookies from 'universal-cookie';
 
 export async function getUsername(){
-	if(cookies.get('token')){
+	const cookies = new Cookies();
+	if(cookies.get('token')){		
 		console.log(cookies.get('token'));
 		let res = await fetch(`${import.meta.env.VITE_SERVER}/user`, {
 			method: 'GET',
