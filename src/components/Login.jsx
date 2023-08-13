@@ -25,7 +25,7 @@ export default function Login(){
 			}
 			else if(res.status == 200){
 				res.json().then(data => {
-					cookies.set('token', data.token, {expires: new Date(Date.now() + 60 * 1000 * 86400), secure: true, sameSite: 'None', path: '/'});
+					cookies.set('token', data.token, {expires: new Date(Date.now() + 60 * 1000 * 86400), secure: true, sameSite: 'None', path: '/', domain: 'socmed-server.vercel.app'});
 					window.location.href = "/";
 				});
 			}
