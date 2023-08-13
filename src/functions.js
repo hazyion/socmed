@@ -3,8 +3,8 @@ import Cookies from 'universal-cookie';
 
 export async function getUsername(){
 	const cookies = new Cookies();
+	console.log(cookies.get('token'));
 	if(cookies.get('token')){		
-		console.log(cookies.get('token'));
 		let res = await fetch(`${import.meta.env.VITE_SERVER}/user`, {
 			method: 'GET',
 			mode: 'cors',
