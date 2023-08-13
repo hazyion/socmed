@@ -1,25 +1,15 @@
-//import cookies from 'js-cookie';
-import Cookies from 'universal-cookie';
-
 export async function getUsername(){
-	const cookies = new Cookies();
-	console.log(cookies.get('token'));
-	if(cookies.get('token')){		
-		let res = await fetch(`${import.meta.env.VITE_SERVER}/user`, {
-			method: 'GET',
-			mode: 'cors',
-			credentials: 'include'
-		});
-		if(res.status == 200){
-			let data = await res.json();
-			return {username: data.username};
-		}
-		else{
-			return {error: true, verification: false, message: "Token verification failed"};
-		}
+	let res = await fetch(`${import.meta.env.VITE_SERVER}/user`, {
+		method: 'GET',
+		mode: 'cors',
+		credentials: 'include'
+	});
+	if(res.status == 200){
+		let data = await res.json();
+		return {username: data.username};
 	}
 	else{
-		return {error: true, cookie: false, message: "Invalid cookies"};
+		return {error: true, verification: false, message: "Token verification failed"};
 	}
 }
 
