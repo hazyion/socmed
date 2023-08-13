@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+// import firebase from "firebase/storage";
+import {getStorage, ref, getDownloadURL} from 'firebase/storage';
 
 export default function CommunityPreview(props){
 	let [source, setSource] = React.useState("");
