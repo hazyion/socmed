@@ -9,6 +9,7 @@ import Chat from './Chat';
 import Modal from './Modal';
 import CommunityAdmin from './CommunityAdmin';
 import ErrorPage from './ErrorPage';
+import UpdateModal from './UpdateModal';
 import { getUsername } from '../functions';
 import '../styles/community.css';
 
@@ -25,6 +26,8 @@ export default function Community(props){
 	let [homeSources, setHomeSources] = React.useState([]);
 	let [modal, setModal] = React.useState({src: "", visible: false});
 	let [member, setMember] = React.useState(false);
+	let [updateModal, setUpdateModal] = React.useState({message: "", visible: false, color: ''});
+	let [prevTimeout, setPrevTimeout] = React.useState('');
 	let [admin, setAdmin] = React.useState(false);
 	let {query} = urlParse(window.location.href, true);
 	const firebaseConfig = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG);
@@ -38,6 +41,13 @@ export default function Community(props){
 		if(!homeLoaded[id]){
 			setHomeLoaded(prev => ({...prev, [id]: true}));
 		}
+	}
+
+	function handleUpdateModal(msg, color){
+		setUpdateModal({visible: true, message: msg, color});
+		clearTimeout(prevTimeout);
+		let tID = setTimeout(() => {setUpdateModal({visible: false, message: '', color: ''})}, 3000);
+		setPrevTimeout(tID);
 	}
 
 	function handleClickNav(name){
@@ -114,14 +124,24 @@ export default function Community(props){
 	}
 
 	function handleClickJoin(){
-		let method = 'POST';
+		let method = 'POST', updateObj = {color: 'green', message: 'You have joined the community', visible: true};
 		if(member){
 			method = 'DELETE';
+			updateObj = {color: 'yellow', message: 'You have left the community', visible: true};
 		}
-		setTimeout(() => {
-			setMember(prev => !prev);
-		}, 200);
-		fetch(`${import.meta.env.VITE_SERVER}/member?communityid=${query.id}`, {method, credentials: 'include'});
+		fetch(`${import.meta.env.VITE_SERVER}/member?communityid=${query.id}`, {method, credentials: 'include'})
+		.then(res => {
+			if(res.status == 200){
+				setMember(prev => !prev);
+				setUpdateModal(updateObj);
+			}
+			else{
+				setUpdateModal({color: 'red', message: 'Action failed; Please try again in a while', visible: true});
+			}
+		});
+		clearTimeout(prevTimeout);
+		let tID = setTimeout(() => setUpdateModal({color: '', visible: false, message: ''}), 3000);
+		setPrevTimeout(tID);
 	}
 
 	function handleLike(id, liked){
@@ -289,6 +309,7 @@ export default function Community(props){
 	return(
 		<div className="community">
 			{modal.visible && <Modal setModal={setModal} {...modal}/>}
+			{updateModal.visible && <UpdateModal message={updateModal.message} color={updateModal.color}/>}
 			<div className="community-navbar">
 				<div className={"community-nav"+addFont('home')} onClick={() => handleClickNav('home')}>HOME</div>
 				<div className={"community-nav"+addFont('feed')} onClick={() => handleClickNav('feed')}>FEED</div>
@@ -323,7 +344,14 @@ export default function Community(props){
 			{selected === 'feed' &&
 				<div className="community-feed">
 					<div className="community-feed__header">
-						<Link to={login ? `/community/feed/create?communityid=${query.id}` : '/login'} className="community-feed__make-post-button">+ Make a post</Link>
+						{login ?
+							member ?
+								<Link to={`/community/feed/create?communityid=${query.id}`} className="community-feed__make-post-button">+ Make a post</Link>
+							:
+								<div type='button' className="community-feed__make-post-button" onClick={() => handleUpdateModal("You need to be a member to make posts", "red")}>+ Make a post</div>	
+							:
+							<Link to={'/login'} className="community-feed__make-post-button">+ Make a post</Link>
+						}
 					</div>
 					{loading.feed ? <ErrorPage loading /> : (sources.length > 0 ? <FeedElements /> : <ErrorPage message='Be the first to make a post!' />)}
 				</div>

@@ -1,0 +1,26 @@
+.update-modal{
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	z-index: 15;
+	border-radius: 10px;
+	height: max-content;
+	width: max-content;
+	padding: 15px 10px;
+	opacity: 0.9;
+}
+
+.update-modal[color=red]{
+	background-color: red;
+	color: white;
+}
+
+.update-modal[color=green]{
+	background-color: limegreen;
+	color: black;
+}
+
+.update-modal[color=yellow]{
+	background-color: yellow;
+	color: black;
+}

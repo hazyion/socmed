@@ -9,7 +9,8 @@ import '../styles/profile.css';
 export default function Profile(){
 	let [userDetails, setUserDetails] = React.useState({});
 	let [username, setUsername] = React.useState("");
-	let [valid, setValid] = React.useState(false);
+	let [valid, setValid] = React.useState(true);
+	let [loading, setLoading] = React.useState(true);
 	let [login, setLogin] = React.useState(false);
 	let [follows, setFollows] = React.useState(false);
 	let {query} = urlParse(window.location.href, true);
@@ -20,14 +21,15 @@ export default function Profile(){
 			if(res.status == 200){
 				let data = await res.json();
 				setUserDetails({...data});
-				setValid(true);
 			}
 			else{
 				setValid(false);
 			}
-			if(cookies.get('token')){
-				setUsername((await getUsername()).username);
+			setLoading(false);
+			let getUser = await getUsername();
+			if(getUser.username){
 				setLogin(true);
+				setUsername(getUser.username);
 			}
 		};
 		effect();
@@ -53,13 +55,14 @@ export default function Profile(){
 	}
 
 	async function handleClickMessage(){
-		let res = await fetch(`${import.meta.env.VITE_SERVER}/chat/private/room?username=${userDetails.username}`);
+		let res = await fetch(`${import.meta.env.VITE_SERVER}/chat/private/room?username=${userDetails.username}`, {credentials: 'include'});
 		if(res.status != 200){
 			return;
 		}
 		let data = await res.json();
 		await fetch(`${import.meta.env.VITE_SERVER}/chat/contact`, {
 			method: 'POST',
+			credentials: 'include',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({roomId: data.roomId})
 		});
@@ -87,6 +90,10 @@ export default function Profile(){
 		return <ErrorPage message="User not Found" />
 	}
 
+	if(loading){
+		return <ErrorPage loading />
+	}
+
 	return (
 		<div className="profile">
 			<div className="profile__container container-left">
@@ -97,7 +104,8 @@ export default function Profile(){
 					{login && username != userDetails.username &&
 						<button type="button" className="profile__button button--style" onClick={handleFollow}>{follows ? 'Unfollow' : 'Follow'}</button>
 					}
-					{login && <button type="button" className="profile__button button--style" onClick={handleLogout}>Logout</button>}
+					{login && username == userDetails.username &&
+						<button type="button" className="profile__button button--style" onClick={handleLogout}>Logout</button>}
 				</div>
 			</div>
 			<div className="profile__container container-right">

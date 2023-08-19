@@ -1,5 +1,5 @@
 .profile{
-	width: calc(100vw - var(--sidebar-width));
+	width: 100%;
 	height: calc(100vh - var(--navbar-height));
 
 	display: flex;

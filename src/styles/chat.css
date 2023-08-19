@@ -2,9 +2,7 @@
 	--chat-sidebar-width: 15%;
 	--chatbar-height: 90px;
 	
-	height: calc(100vh - var(--navbar-height));
-	width: calc(100% - var(--sidebar-width));
-	position: relative;
+	width: 100%;
 	color: var(--active-text);
 
 	display: flex;
@@ -22,11 +20,9 @@
 }
 
 .chat__body{
-	height: 100%;
 	width: calc(100% - var(--chat-sidebar-width));
+	overflow: hidden;
 
-	display: flex;
-	flex-direction: column;
 }
 
 .chat__message-box{
@@ -34,7 +30,6 @@
 	width: 100%;
 	padding-bottom: calc(var(--chatbar-height) + 20px);
 	overflow-y: scroll;
-	scrollbar-width: 0px;
 
 	display: flex;
 	flex-direction: column;
@@ -73,11 +68,11 @@
 
 .chat__chatbar{
 	height: var(--chatbar-height);
-	width: calc(100% - var(--chat-sidebar-width));
+	width: 100%;
+	position: sticky;
+	bottom: 0;
 	font-size: 1.2em;
 	border-top: 1px solid var(--active-border);
-	position: absolute;
-	bottom: 0px;
 	background-color: var(--active-bg);
 
 	display: flex;
@@ -88,6 +83,7 @@
 .chat__input{
 	height: 40px;
 	width: 75%;
+	font-size: 1rem;
 }
 
 .chat__icon{
@@ -105,6 +101,10 @@
 
 .chat__emoji-icon{
 	margin-right: 40px;
+}
+
+.chat__emoji-box{
+	position: absolute;
 }
 
 .chat__sidebar{

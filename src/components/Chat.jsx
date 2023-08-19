@@ -1,5 +1,6 @@
 import React from 'react';
 import socket from '../socket';
+import EmojiPicker from 'emoji-picker-react';
 import ErrorPage from '../components/ErrorPage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +18,8 @@ export default function Chat(){
 	});
 	let [userList, setUserList] = React.useState([]);
 	let [users, setUsers] = React.useState([]);
-	let [selectedUser, setSelectedUser] = React.useState({});
+	let [emojiOpen, setEmojiOpen] = React.useState(false);
+	let [selectedUser, setSelectedUser] = React.useState('');
 	let [input, setInput] = React.useState("");
 	let [messages, setMessages] = React.useState([]);
 	let {query, pathname} = URLParse(window.location.href, true);
@@ -29,7 +31,11 @@ export default function Chat(){
 	}
 
 	function handleUserSelect(roomId){
-		window.location.href = `/chat?id=${roomId}`;
+		if(history.pushState) {
+			var newurl = window.location.origin + window.location.pathname + `?id=${roomId}`;
+			window.history.pushState({path:newurl}, '', newurl);
+		}
+		setSelectedUser(roomId);
 	}
 
 	function handleSend(){
@@ -49,7 +55,7 @@ export default function Chat(){
 	function SidebarElements(){
 		return users.map(obj => {
 			let className = "chat__user";
-			if(obj.username == selectedUser.username){
+			if(obj.roomId == selectedUser){
 				className += " chat__user--active";
 			}
 			return <div className={className} key={obj.username} onClick={() => handleUserSelect(obj.roomId)}>{obj.username}</div>;
@@ -161,20 +167,16 @@ export default function Chat(){
 					setMessages(await res.json());
 				}
 			}
-		}
+		};
 		effect();
-		return () => {
-			// socket.disconnect();
-		}
-	}, []);
+	}, [selectedUser]);
 
 	React.useEffect(() => {
 		const effect = async() => {
 			if(pathname == '/community')
 				return;
-			let res = await fetch(`${import.meta.env.VITE_SERVER}/chat/contact`);
+			let res = await fetch(`${import.meta.env.VITE_SERVER}/chat/contact`, {credentials: 'include'});
 			let data = await res.json();
-			console.log(data);
 			if(userList.length > 0){
 				data = data.map(obj => {
 					let userObj = userList.find(x => x.username == obj.username);
@@ -195,7 +197,7 @@ export default function Chat(){
 
 
 	if(!login){
-		return <ErrorPage loading/>;
+		return <ErrorPage message="You need to login to be able to chat"/>;
 	}
 
 	return (
@@ -206,9 +208,10 @@ export default function Chat(){
 					<MessageElements />
 				</div>
 				<div className="chat__chatbar">
-					<FontAwesomeIcon icon={faFaceLaughBeam} className="chat__emoji-icon chat__icon" />
+					<FontAwesomeIcon icon={faFaceLaughBeam} className="chat__emoji-icon chat__icon" onClick={() => setEmojiOpen(prev => !prev)}/>
+					{emojiOpen && <EmojiPicker className="chat__emoji-box"/>}
 					<FontAwesomeIcon icon={faArrowUpFromBracket} className="chat__upload-icon chat__icon" />
-					<input type="text" name="message" className='chat__input input--style' value={input} disabled={query.roomid} onChange={handleChange}/>
+					<input type="text" name="message" className='chat__input input--style' value={input} disabled={query.roomid} autoComplete="off" onChange={handleChange}/>
 					<FontAwesomeIcon icon={faPaperPlane} className="chat__send-icon chat__icon" onClick={handleSend}/>
 				</div>
 			</div>}

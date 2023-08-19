@@ -9,10 +9,10 @@ export default function ErrorPage(props){
 		<div className="error-page">
 			{props.loading &&
 			<ReactLoading
-				height={'100px'}
-				width={'100px'}
+				height={'60px'}
+				width={'60px'}
 				className='loading'
-				color={'#828181'}
+				color={'#fcba03'}
 				type={'bubbles'}
 			/>}
 			{!props.loading && <div className="error">{message}</div>}

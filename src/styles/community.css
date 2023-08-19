@@ -7,7 +7,7 @@
 }
 
 .community{
-	width: calc(100% - var(--sidebar-width));
+	width: 100%;
 	color: var(--active-text);
 
 	display: flex;
@@ -233,7 +233,7 @@
 
 .community-create{
 	height: max-content;
-	width: calc(100vw - var(--sidebar-width));
+	width: 100%;
 	padding: 60px 0px 100px 90px;
 	overflow: auto;
 }
@@ -327,7 +327,7 @@
 
 .community-make-post{
 	height: max-content;
-	width: calc(100vw - var(--sidebar-width));
+	width: 100%;
 	padding: 60px 0px 100px 90px;
 	overflow: auto;
 }

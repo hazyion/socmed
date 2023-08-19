@@ -19,10 +19,10 @@ import './styles/style.css';
 import './styles/auth.css';
 
 export default function App(){
-	
 	let [login, setLogin] = React.useState(false);
 	let [username, setUsername] = React.useState("");
 	let [recentCommunities, setRecentCommunities] = React.useState([]);
+	let [closed, setClosed] = React.useState(false);
 	// let [dark, setDark] = React.useState(false);
 	const appRef = React.useRef(null);
 	
@@ -75,11 +75,6 @@ export default function App(){
 			if(getUser.username){
 				setUsername(getUser.username);
 				setLogin(true);
-				// let res = await fetch(`${import.meta.env.VITE_SERVER}/community/recent`, {
-				// credentials: 'include'
-				// });
-				// let data = await res.json();
-				// setRecentCommunities(data.recentCommunities);
 			}
 		};
 		effect();
@@ -95,7 +90,7 @@ export default function App(){
 
 	function Bars(){
 		return (
-			<div className="container" ref={appRef}>
+			<React.Fragment>
 				<nav className="navbar">
 					<Link to="/">
 						<img src={logo} alt="" className="navbar__logo" />
@@ -114,16 +109,19 @@ export default function App(){
 						</Link> */}
 					</div>
 				</nav>
-				<div className="body">
-					<div className="sidebar">
-						<Link to={login ? "/community/create" : "/login"} className="sidebar__nav">+ Create Community</Link>
-						<Link to="/chat" className="sidebar__nav">Chat</Link>
-						{/* {login && recentCommunities.length > 0 && <div className="sidebar__heading">Recent Communities</div>}
-						{login && <RecentCommunityElements />} */}
+				<div className='container'>
+					<div className={`sidebar__container${closed ? ' sidebar--closed' : ''}`}>
+						<div className='sidebar'>
+							<Link to={login ? "/community/create" : "/login"} className="sidebar__nav">+ Create Community</Link>
+							<Link to="/chat" className="sidebar__nav">Chat</Link>
+							{/* {login && recentCommunities.length > 0 && <div className="sidebar__heading">Recent Communities</div>}
+							{login && <RecentCommunityElements />} */}
+						</div>
 					</div>
+					<div className="sidebar__popper" onClick={() => setClosed(prev => !prev)}></div>
 					<Outlet />
 				</div>
-			</div>
+			</React.Fragment>
 		)
 	}
 

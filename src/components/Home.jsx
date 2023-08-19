@@ -3,7 +3,7 @@ import CommunityPreview from './CommunityPreview';
 import ErrorPage from './ErrorPage';
 import '../styles/home.css';
 
-export default function Home(){
+export default React.memo(function Home(props){
 	let [communities, setCommunities] = React.useState();
 	let [valid, setValid] = React.useState(true);
 	let [loading, setLoading] = React.useState(true);
@@ -54,7 +54,7 @@ export default function Home(){
 					{makePreviewList(communities.discover)}
 				</div>
 			</div>
-			{/* <div className="home__communities-box" name="popular">
+			<div className="home__communities-box" name="popular">
 				<h1 className="home__heading">Popular</h1>
 				<div className="home__preview-box">
 					{makePreviewList(communities.popular)}
@@ -65,7 +65,7 @@ export default function Home(){
 				<div className="home__preview-box">
 					{makePreviewList(communities.recommended)}
 				</div>
-			</div> */}
+			</div>
 		</div>
 	);
-}
+});
