@@ -37,23 +37,23 @@ export default function Login(){
 	return (
 		<div className="auth">
 			<form>
+				<div className="auth__form-bg" />
+				<h2 className="auth__heading2">Log in to Socmed</h2>
 				<div className="auth__input-container">
 					<label className="auth__label" htmlFor="username" >Username</label>
 					<input className="auth__input input--style" id="username" name="auth-detail" type="text" value={inputs.username} onChange={handleChange}/>
+					<div className="auth__warning" name="login-username">{warnings.username}</div>
 				</div>
-				<div className="auth__warning" name="login-username">{warnings.username}</div>
 				<div className="auth__input-container">
 					<label className="auth__label" htmlFor="password" >Password</label>
 					<input className="auth__input input--style" id="password" name="auth-detail" type="password" value={inputs.password} onChange={handleChange}/>
+					<div className="auth__warning" name="login-password">{warnings.password}</div>
 				</div>
-				<div className="auth__warning" name="login-password">{warnings.password}</div>
-				<div className="auth__button-box">
-					<Link to="/signup" className="auth__redirect">Don't have an account? Sign up</Link>
-					<button className="auth__button button--style" type="button" onClick={handleSubmit}>Login</button>
-				</div>
+				<button className="auth__button button--style" type="button" onClick={handleSubmit}>Login</button>
+				<h3 className="auth__heading3">{"Don't have an account?"}</h3>
+				<button type="button" className="auth__button button--style" onClick={() => window.location.href = "/signup"}>Sign Up</button>
 			</form>
-			<Balloons />
-			<div className="auth__title">KUCATU</div>
+			<h1 className="auth__heading1">Socmed.</h1>
 		</div>
 	)
 }

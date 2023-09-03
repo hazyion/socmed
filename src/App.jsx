@@ -23,47 +23,30 @@ export default function App(){
 	let [username, setUsername] = React.useState("");
 	let [recentCommunities, setRecentCommunities] = React.useState([]);
 	let [closed, setClosed] = React.useState(false);
-	// let [dark, setDark] = React.useState(false);
+	let [theme, setTheme] = React.useState('light');
 	const appRef = React.useRef(null);
 	
-	// function handleDarkToggle(){
-	// 	setDark(prev => !prev);
-	// }
+	function handleThemeToggle(){
+		setTheme(prev => {
+			if(prev == 'light'){
+				localStorage.setItem('theme', 'dark');
+				return 'dark';
+			}
+			localStorage.setItem('theme', 'light');
+			return 'light';
+		});
+	}
 
-	// React.useEffect(() => {
-	// 	if(localStorage.getItem('dark')){
-	// 		if(localStorage.getItem('dark') === '0'){
-	// 			setDark(false);
-	// 		}
-	// 		else{
-	// 			setDark(true);
-	// 		}
-	// 	}
-	// 	return () => {
-	// 		localStorage.setItem('dark', dark ? '0' : '1');
-	// 	}
-	// }, []);
-
-	// React.useEffect(() => {
-	// 	if(appRef.current == null){
-	// 		return;
-	// 	}
-	// 	const effect = async() => {
-	// 		if(!dark){
-	// 			appRef.current.style.setProperty('--active-bg', 'var(--light-bg)');
-	// 			appRef.current.style.setProperty('--active-text', 'var(--light-text)');
-	// 			appRef.current.style.setProperty('--active-border', 'var(--light-border)');
-	// 			appRef.current.style.setProperty('--active-accent', 'var(--light-accent)');
-	// 		}
-	// 		else{
-	// 			appRef.current.style.setProperty('--active-bg', 'var(--dark-bg)');
-	// 			appRef.current.style.setProperty('--active-text', 'var(--dark-text)');
-	// 			appRef.current.style.setProperty('--active-border', 'var(--dark-border)');
-	// 			appRef.current.style.setProperty('--active-accent', 'var(--dark-accent)');
-	// 		}
-	// 	};
-	// 	effect();
-	// }, [dark]);
+	React.useEffect(() => {
+		if(localStorage.getItem('theme')){
+			if(localStorage.getItem('theme') === 'dark'){
+				setTheme('dark');
+			}
+			else{
+				setTheme('light');
+			}
+		}
+	}, []);
 
 	function handleRedirectCommunity(id){
 		window.location.href = `/community?id=${id}`;
@@ -91,14 +74,14 @@ export default function App(){
 	function Bars(){
 		return (
 			<React.Fragment>
-				<nav className="navbar">
+				<nav className={`navbar ${theme}`}>
 					<Link to="/">
 						<img src={logo} alt="" className="navbar__logo" />
 					</Link>
 					<Search />
 					<div className="navbar__button-box">
-						{/* {dark && <FontAwesomeIcon className="navbar__theme-toggle" icon={faSun} onClick={handleDarkToggle}/>}
-						{!dark && <FontAwesomeIcon className="navbar__theme-toggle" icon={faMoon} onClick={handleDarkToggle}/>} */}
+						{theme == 'dark' && <FontAwesomeIcon className="navbar__theme-toggle" icon={faSun} onClick={handleThemeToggle}/>}
+						{theme == 'light' && <FontAwesomeIcon className="navbar__theme-toggle" icon={faMoon} onClick={handleThemeToggle}/>}
 						{!login && <Link to="/login" className="navbar__login" >Login</Link>}
 						{login &&
 						<Link to={`/profile?user=${username}`} className="navbar__profile">
@@ -109,7 +92,7 @@ export default function App(){
 						</Link> */}
 					</div>
 				</nav>
-				<div className='container'>
+				<div className={`container ${theme}`}>
 					<div className={`sidebar__container${closed ? ' sidebar--closed' : ''}`}>
 						<div className='sidebar'>
 							<Link to={login ? "/community/create" : "/login"} className="sidebar__nav">+ Create Community</Link>

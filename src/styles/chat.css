@@ -3,6 +3,7 @@
 	--chatbar-height: 90px;
 	
 	width: 100%;
+	height: calc(100vh - var(--navbar-height)); 
 	color: var(--active-text);
 
 	display: flex;
@@ -12,17 +13,16 @@
 	--chat-sidebar-width: 0%;
 	--chatbar-height: 90px;
 	
-	height: calc(100vh - var(--navbar-height) - var(--community-navbar-height));
 	width: 100%;
-	position: relative;
+	height: calc(100vh - var(--navbar-height) - var(--community-navbar-height)); 
 
 	display: flex;
 }
 
 .chat__body{
 	width: calc(100% - var(--chat-sidebar-width));
+	height: 100%;
 	overflow: hidden;
-
 }
 
 .chat__message-box{
@@ -72,8 +72,7 @@
 	position: sticky;
 	bottom: 0;
 	font-size: 1.2em;
-	border-top: 1px solid var(--active-border);
-	background-color: var(--active-bg);
+	border-top: 1px solid var(--active-highlight);
 
 	display: flex;
 	align-items: center;
@@ -87,7 +86,6 @@
 }
 
 .chat__icon{
-	color: var(--active-text);
 	cursor: pointer;
 }
 
@@ -110,7 +108,7 @@
 .chat__sidebar{
 	width: var(--chat-sidebar-width);
 	padding-top: 30px;
-	border-left: 1px solid var(--active-border);
+	border-left: 1px solid var(--active-highlight);
 	overflow-y: scroll;
 }
 
@@ -124,7 +122,7 @@
 }
 
 .chat__user--active{
-	background-color: var(--active-accent);
+	background-color: var(--active-highlight);
 }
 
 .chat__channel{

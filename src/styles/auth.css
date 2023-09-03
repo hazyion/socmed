@@ -1,80 +1,120 @@
+@keyframes background-anim{
+	0%{
+		background-position: right;
+	}
+
+	100%{
+		background-position: left;
+	}
+}
+
+:root{
+	--gradient: linear-gradient(
+		45deg,
+		#573760,
+		#5A5387,
+		#AA3464,
+		#E87C72,
+		#FCAD8E
+	);
+
+	--input-bg: rgba(50, 50, 50, 0.3);
+}
+
 .auth{
 	width: 100%;
 	height: 100vh;
-	position: relative;
-	color: var(--active-text);
+	color: white;
+	background: var(--gradient);
+	background-size: 200% 200%;
+
+	animation: 20s infinite ease-in-out alternate background-anim;
 
 	display: flex;
 	align-items: center;
 }
 
-.auth__title{
-	position: relative;
-	left: 100px;
-	font-size: 70px;
-	font-family: 'Clash Display', sans-serif;
-	font-weight: 400;
-	letter-spacing: 10px;
-	transition: letter-spacing 0.7s;
+.auth__form-bg{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: rgba(0,0,0,0.3);
+	height: 100%;
+	width: 100%;
+	filter: blur(5px);
 }
 
-.auth__title:hover{
-	letter-spacing: 15px;
-}
-
-.auth > form{
-	width: 35%;
+form{
 	height: max-content;
-	margin-left: 100px;
-	padding: 60px 0px;
-	box-shadow: 0px 0px 3px 3px var(--active-border);
-	border-radius: 50px;
+	position: relative;
+	border: 1px solid grey;
+	border-radius: 8px;
+	margin-left: 150px;
+	padding: 50px 150px 50px 50px;
 
 	display: flex;
 	flex-direction: column;
-	justify-content: center; 
-	align-items: center;
+}
+
+form *{
+	z-index: 5;
 }
 
 .auth__input-container{
-	height: 30px;
 	font-size: 1.1em;
-	margin-bottom: 10px;
-	width: 70%;
 
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	flex-direction: column;
+}
+
+.auth__heading1{
+	position: absolute;
+	right: 50px;
+	top: 50%;
+	font-size: 4.5rem;
+	mix-blend-mode: luminosity;
+	user-select: none;
+}
+
+.auth__heading2{
+	font-size: 1.8rem;
+	margin-bottom: 60px;
+}
+
+.auth__label{
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.05rem;
+	font-weight: 200;
 }
 
 .auth__input{
-	height: 100%;
-	width: 60%;
-	font-size: 0.7em;
+	width: 260px;
+	font-size: 1rem;
+	border: 1px solid var(--dark-highlight);
+	background-color: var(--input-bg);
+}
+
+.auth__heading3{
+	margin-top: 50px;
 }
 
 .auth__warning{
 	height: 20px;
-	width: 57%;
-	opacity: 0.6;
 	color: red;
 	font-size: 0.8em;
-	margin-bottom: 15px;
-
-	align-self: end;
-}
-
-.auth__button-box{
-	width: 80%;
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	margin: 10px 0px;
 }
 
 .auth__button{
-	width: 120px;
+	margin: 15px 0px;
 	height: 40px;
+	width: 120px;
+	border: 1px solid var(--light-highlight);
+}
+
+.auth__button:hover{
+	background-color: var(--input-bg);
 }
 
 .auth__redirect{

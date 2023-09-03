@@ -10,5 +10,5 @@
 .error{
 	font-size: 2rem;
 	font-family: 'Inter', sans-serif;
-	color: var(--active-accent);
+	color: var(--active-highlight);
 }

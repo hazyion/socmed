@@ -12,7 +12,7 @@ export default function ErrorPage(props){
 				height={'60px'}
 				width={'60px'}
 				className='loading'
-				color={'#fcba03'}
+				color='grey'
 				type={'bubbles'}
 			/>}
 			{!props.loading && <div className="error">{message}</div>}

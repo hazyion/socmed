@@ -91,33 +91,33 @@ export default function Signup(){
 	return(
 		<div className="auth">
 			<form>
+				<div className="auth__form-bg" />
+				<h2 className="auth__heading2">Sign up to Socmed</h2>
 				<div className="auth__input-container">
 					<label className="auth__label" htmlFor="full_name" >Full Name</label>
 					<input className="auth__input input--style" id="full_name" name="auth-detail" type="text" value={inputs.full_name} onChange={handleChange}/>
+					<div className="auth__warning" name="signup-full_name">{warnings.full_name}</div>
 				</div>
-				<div className="auth__warning" name="signup-full_name">{warnings.full_name}</div>
 				<div className="auth__input-container">
 					<label className="auth__label" htmlFor="email" >Email</label>
 					<input className="auth__input input--style" id="email" name="auth-detail" type="text" value={inputs.email} onChange={handleChange}/>
+					<div className="auth__warning" name="signup-email">{warnings.email}</div>
 				</div>
-				<div className="auth__warning" name="signup-email">{warnings.email}</div>
 				<div className="auth__input-container">
 					<label className="auth__label" htmlFor="username" >Username</label>
 					<input className="auth__input input--style" id="username" name="auth-detail" type="text" value={inputs.username} onChange={handleChange}/>
+					<div className="auth__warning" name="signup-username">{warnings.username}</div>
 				</div>
-				<div className="auth__warning" name="signup-username">{warnings.username}</div>
 				<div className="auth__input-container">
 					<label className="auth__label" htmlFor="password" >Password</label>
 					<input className="auth__input input--style" id="password" name="auth-detail" type="password" value={inputs.password} onChange={handleChange}/>
+					<div className="auth__warning" name="signup-password">{warnings.password}</div>
 				</div>
-				<div className="auth__warning" name="signup-password">{warnings.password}</div>
-				<div className="auth__button-box">
-					<Link to="/login" className="auth__redirect">Already signed up? Login</Link>
-					<button className="auth__button button--style" type="button" onClick={handleSubmit}>Sign Up</button>
-				</div>
+				<button className="auth__button button--style" type="button" onClick={handleSubmit}>Sign Up</button>
+				<h3 className="auth__heading3">{"Already signed up?"}</h3>
+				<button type="button" className="auth__button button--style" onClick={() => window.location.href = "/login"}>Login</button>
 			</form>
-			<Balloons />
-			<div className="auth__title">KUCATU</div>
+			<h1 className="auth__heading1">Socmed.</h1>
 		</div>
 	);
 }

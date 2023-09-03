@@ -7,10 +7,6 @@
 	flex-direction: column;
 }
 
-.community-admin__header,.community-admin__label{
-	color: var(--active-text);
-}
-
 .community-admin__action-box{
 	width: 100%;
 	margin-bottom: 70px;
