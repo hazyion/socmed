@@ -15,6 +15,7 @@ import CreateFeedPost from './components/CreateFeedPost';
 import ErrorPage from './components/ErrorPage';
 import { getUsername } from './functions';
 import logo from '/public/images/logo.png';
+import uniqid from 'uniqid';
 import './styles/style.css';
 import './styles/auth.css';
 
@@ -25,6 +26,8 @@ export default function App(){
 	let [closed, setClosed] = React.useState(false);
 	let [theme, setTheme] = React.useState('light');
 	const appRef = React.useRef(null);
+
+	const rerender = React.useMemo(() => {console.log('china'); return uniqid();}, []);
 	
 	function handleThemeToggle(){
 		setTheme(prev => {
@@ -115,7 +118,7 @@ export default function App(){
 						<Route path='login' element={<Login />} />
 						<Route path='signup' element={<Signup />} />
 						<Route element={<Bars/>}>
-							<Route index element={<Home />} />
+							<Route index element={<Home rerender={rerender}/>} />
 							<Route path='community' element={<Community />} />
 							<Route path='community/create' element={<CreateCommunity />} />
 							<Route path='community/feed/create' element={<CreateFeedPost />} />

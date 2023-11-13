@@ -22,6 +22,7 @@ export default React.memo(function Home(props){
 
 	React.useEffect(() => {
 		const effect = async() => {
+			console.log(props.rerender);
 			let res = await fetch(`${import.meta.env.VITE_SERVER}/communities?view=home`, {
 				credentials: 'include'
 			});
@@ -68,4 +69,4 @@ export default React.memo(function Home(props){
 			</div>
 		</div>
 	);
-});
+}, (prev, next) => prev === next);
