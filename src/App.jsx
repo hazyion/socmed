@@ -15,7 +15,6 @@ import CreateFeedPost from './components/CreateFeedPost';
 import ErrorPage from './components/ErrorPage';
 import { getUsername } from './functions';
 import logo from '/public/images/logo.png';
-import uniqid from 'uniqid';
 import './styles/style.css';
 import './styles/auth.css';
 
@@ -23,37 +22,13 @@ export default function App(){
 	let [login, setLogin] = React.useState(false);
 	let [username, setUsername] = React.useState("");
 	let [recentCommunities, setRecentCommunities] = React.useState([]);
-	let [closed, setClosed] = React.useState(false);
-	let [theme, setTheme] = React.useState('light');
-	const appRef = React.useRef(null);
-
-	const rerender = React.useMemo(() => {console.log('china'); return uniqid();}, []);
 	
-	function handleThemeToggle(){
-		setTheme(prev => {
-			if(prev == 'light'){
-				localStorage.setItem('theme', 'dark');
-				return 'dark';
-			}
-			localStorage.setItem('theme', 'light');
-			return 'light';
-		});
-	}
+	let theme = React.useRef('light');
+	const navRef = React.useRef(null);
+	const containerRef = React.useRef(null);
 
-	React.useEffect(() => {
-		if(localStorage.getItem('theme')){
-			if(localStorage.getItem('theme') === 'dark'){
-				setTheme('dark');
-			}
-			else{
-				setTheme('light');
-			}
-		}
-	}, []);
-
-	function handleRedirectCommunity(id){
-		window.location.href = `/community?id=${id}`;
-	}
+	const closed = React.useRef(false);
+	const sidebarRef = React.useRef(null);
 	
 	React.useEffect(() => {
 		const effect = async() => {
@@ -66,6 +41,56 @@ export default function App(){
 		effect();
 	}, []);
 
+	React.useEffect(() => {
+		if(localStorage.getItem('theme') && localStorage.getItem('theme') === 'dark'){
+			theme.current = 'light';
+		}
+		else{
+			theme.current = 'dark';
+		}
+		// Setting them wrong since we toggle it by below call
+		handleThemeToggle();
+
+		if(localStorage.getItem('sidebarClosed') && localStorage.getItem('sidebarClosed') === 'true'){
+			closed.current = false;
+		}
+		else{
+			closed.current = true;
+		}
+		// Setting them wrong since we toggle it by below call
+		handleSidebarClose();
+	});
+
+	function handleThemeToggle(){
+		localStorage.setItem('theme', theme.current === 'light' ? 'dark' : 'light');
+		
+		if(navRef.current){
+			navRef.current.classList.add(theme.current === 'light' ? 'dark' : 'light');
+			navRef.current.classList.remove(theme.current === 'light' ? 'light' : 'dark');
+		}
+
+		if(containerRef.current){
+			containerRef.current.classList.add(theme.current === 'light' ? 'dark' : 'light');
+			containerRef.current.classList.remove(theme.current === 'light' ? 'light' : 'dark');
+		}
+
+		theme.current = theme.current === 'light' ? 'dark' : 'light';
+	}
+
+	function handleRedirectCommunity(id){
+		window.location.href = `/community?id=${id}`;
+	}
+	
+	function handleSidebarClose(){
+		localStorage.setItem('sidebarClosed', !closed.current);
+		
+		if(sidebarRef.current){
+			closed.current ? sidebarRef.current.classList.remove('sidebar--closed') : sidebarRef.current.classList.add('sidebar--closed');
+		}
+
+		closed.current = !closed.current;
+	}
+
 	function RecentCommunityElements(){
 		return recentCommunities.map(obj => {
 			return(
@@ -77,14 +102,14 @@ export default function App(){
 	function Bars(){
 		return (
 			<React.Fragment>
-				<nav className={`navbar ${theme}`}>
+				<nav ref={navRef} className='navbar'>
 					<Link to="/">
 						<img src={logo} alt="" className="navbar__logo" />
 					</Link>
 					<Search />
 					<div className="navbar__button-box">
-						{theme == 'dark' && <FontAwesomeIcon className="navbar__theme-toggle" icon={faSun} onClick={handleThemeToggle}/>}
-						{theme == 'light' && <FontAwesomeIcon className="navbar__theme-toggle" icon={faMoon} onClick={handleThemeToggle}/>}
+						{theme.current == 'dark' && <FontAwesomeIcon className="navbar__theme-toggle" icon={faSun} onClick={handleThemeToggle}/>}
+						{theme.current == 'light' && <FontAwesomeIcon className="navbar__theme-toggle" icon={faMoon} onClick={handleThemeToggle}/>}
 						{!login && <Link to="/login" className="navbar__login" >Login</Link>}
 						{login &&
 						<Link to={`/profile?user=${username}`} className="navbar__profile">
@@ -95,8 +120,8 @@ export default function App(){
 						</Link> */}
 					</div>
 				</nav>
-				<div className={`container ${theme}`}>
-					<div className={`sidebar__container${closed ? ' sidebar--closed' : ''}`}>
+				<div className='container' ref={containerRef}>
+					<div className='sidebar__container' ref={sidebarRef}>
 						<div className='sidebar'>
 							<Link to={login ? "/community/create" : "/login"} className="sidebar__nav">+ Create Community</Link>
 							<Link to="/chat" className="sidebar__nav">Chat</Link>
@@ -104,7 +129,7 @@ export default function App(){
 							{login && <RecentCommunityElements />} */}
 						</div>
 					</div>
-					<div className="sidebar__popper" onClick={() => setClosed(prev => !prev)}></div>
+					<div className="sidebar__popper" onClick={handleSidebarClose}></div>
 					<Outlet />
 				</div>
 			</React.Fragment>
@@ -118,7 +143,7 @@ export default function App(){
 						<Route path='login' element={<Login />} />
 						<Route path='signup' element={<Signup />} />
 						<Route element={<Bars/>}>
-							<Route index element={<Home rerender={rerender}/>} />
+							<Route index element={<Home />} />
 							<Route path='community' element={<Community />} />
 							<Route path='community/create' element={<CreateCommunity />} />
 							<Route path='community/feed/create' element={<CreateFeedPost />} />

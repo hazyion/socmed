@@ -22,6 +22,7 @@ export default function Chat(){
 	let [selectedUser, setSelectedUser] = React.useState('');
 	let [input, setInput] = React.useState("");
 	let [messages, setMessages] = React.useState([]);
+	let [loading, setLoading] = React.useState(true);
 	let {query, pathname} = URLParse(window.location.href, true);
 	let url = URLParse(window.location.href, true);
 	let scroller = React.useRef(null);
@@ -109,12 +110,6 @@ export default function Chat(){
 			setUserList(value);
 		}
 
-		// function onUserConnectedEvent(value){
-		// 	if(!socketState.users.find(obj => obj.username === value.username)){
-		// 		setSocketState(prev => ({...prev, users: [...prev.users, value]}));
-		// 	}
-		// }
-
 		function onPrivateMessageEvent(value){
 			setMessages(prev => [...prev, {username: value.from, time: value.time, message: value.message}]);
 		}
@@ -130,7 +125,6 @@ export default function Chat(){
 		socket.on('users', onUsersEvent);
 		socket.on('private_message', onPrivateMessageEvent);
 		socket.on('community_message', onCommunityMessageEvent);
-		// socket.on('user_connected', onUserConnectedEvent);
 		socket.onAny(onAnyEvent);
 	
 		return () => {
@@ -139,7 +133,6 @@ export default function Chat(){
 			socket.off('leave', onLeaveEvent);
 			socket.off('receive', onReceiveEvent);
 			socket.off('users', onUsersEvent);
-			// socket.off('user_connected', onUserConnectedEvent);
 			socket.off('private_message', onPrivateMessageEvent);
 			socket.off('community_message', onCommunityMessageEvent);
 			socket.offAny(onAnyEvent);
@@ -167,6 +160,7 @@ export default function Chat(){
 					setMessages(await res.json());
 				}
 			}
+			setLoading(false);
 		};
 		effect();
 	}, [selectedUser]);
@@ -195,6 +189,9 @@ export default function Chat(){
 		effect();
 	}, [userList]);
 
+	if(loading){
+		return <ErrorPage loading />;
+	}
 
 	if(!login){
 		return <ErrorPage message="You need to login to be able to chat"/>;
@@ -211,7 +208,7 @@ export default function Chat(){
 					<FontAwesomeIcon icon={faFaceLaughBeam} className="chat__emoji-icon chat__icon" onClick={() => setEmojiOpen(prev => !prev)}/>
 					{emojiOpen && <EmojiPicker className="chat__emoji-box"/>}
 					<FontAwesomeIcon icon={faArrowUpFromBracket} className="chat__upload-icon chat__icon" />
-					<input type="text" name="message" className='chat__input input--style' value={input} disabled={query.roomid} autoComplete="off" onChange={handleChange}/>
+					<input type="text" name="message" className='chat__input input--style' onKeyDown={(e) => {if(e.code === 'Enter') handleSend()}} value={input} disabled={query.roomid} autoComplete="off" onChange={handleChange}/>
 					<FontAwesomeIcon icon={faPaperPlane} className="chat__send-icon chat__icon" onClick={handleSend}/>
 				</div>
 			</div>}

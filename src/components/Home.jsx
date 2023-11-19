@@ -3,7 +3,7 @@ import CommunityPreview from './CommunityPreview';
 import ErrorPage from './ErrorPage';
 import '../styles/home.css';
 
-export default React.memo(function Home(props){
+export default function Home(props){
 	let [communities, setCommunities] = React.useState();
 	let [valid, setValid] = React.useState(true);
 	let [loading, setLoading] = React.useState(true);
@@ -22,7 +22,6 @@ export default React.memo(function Home(props){
 
 	React.useEffect(() => {
 		const effect = async() => {
-			console.log(props.rerender);
 			let res = await fetch(`${import.meta.env.VITE_SERVER}/communities?view=home`, {
 				credentials: 'include'
 			});
@@ -69,4 +68,4 @@ export default React.memo(function Home(props){
 			</div>
 		</div>
 	);
-}, (prev, next) => prev === next);
+};

@@ -26,9 +26,9 @@
 }
 
 .chat__message-box{
-	height: 100%;
+	height: calc(100% - var(--chatbar-height));
 	width: 100%;
-	padding-bottom: calc(var(--chatbar-height) + 20px);
+	padding-bottom: 15px;
 	overflow-y: scroll;
 
 	display: flex;
@@ -69,6 +69,7 @@
 .chat__chatbar{
 	height: var(--chatbar-height);
 	width: 100%;
+	background-color: var(--active-bg);
 	position: sticky;
 	bottom: 0;
 	font-size: 1.2em;
